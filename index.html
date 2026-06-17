@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tour-Abschnitte Glaubitz – Dolgensee</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  html, body, #map {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  .number-marker div {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 32px;
+    text-align: center;
+    border: 2px solid white;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.45);
+  }
+  .legend, .titlebox {
+    position: absolute;
+    z-index: 999;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.25);
+  }
+  .titlebox {
+    top: 12px;
+    left: 50px;
+    padding: 9px 12px;
+    font-weight: bold;
+  }
+  .legend {
+    bottom: 24px;
+    left: 12px;
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .legend-dot, .legend-line {
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .legend-line {
+    width: 22px;
+    height: 4px;
+  }
+</style>
+</head>
+<body>
+<div>Hinweis: Die Verbindungslinie ist eine direkte Linie zwischen den Wegpunkten, keine berechnete Radroute.</div>
+<div id="map"></div>
+<div class="titlebox">OSM-Karte: Glaubitz – Dolgensee</div>
+<div class="legend">
+  <div><span class="legend-dot" style="background:#1b8f3a;"></span>Start</div>
+  <div><span class="legend-line" style="background:#1f66b1;"></span>Montag</div>
+  <div><span class="legend-line" style="background:#2f8f46;"></span>Dienstag</div>
+  <div><span class="legend-dot" style="background:#f39c12;"></span>Lange Mittagspause</div>
+  <div><span class="legend-dot" style="background:#7d3c98;"></span>Übernachtung</div>
+  <div><span class="legend-dot" style="background:#d62728;"></span>Ziel</div>
+  <hr>
+  <div style="max-width:260px;">Hinweis: Die Linie verbindet die Wegpunkte direkt; sie ist keine automatisch berechnete Straßen-/Radroute.</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([51.78, 13.62], 9);
+
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const mondayRoute = L.polyline([
+    [51.3269, 13.3799],
+[51.41628, 13.460099],
+[51.498233, 13.502587],
+[51.574531, 13.577489],
+[51.640043, 13.536745],
+[51.736032, 13.634492],
+[51.781666, 13.707701]
+  ], {
+    color: '#1f66b1',
+    weight: 5,
+    opacity: 0.85
+  }).addTo(map);
+
+  const tuesdayRoute = L.polyline([
+    [51.781666, 13.707701],
+[51.859388, 13.623657],
+[51.962271, 13.613815],
+[52.088068, 13.731137],
+[52.166438, 13.768332],
+[52.25069, 13.72993]
+  ], {
+    color: '#2f8f46',
+    weight: 5,
+    opacity: 0.85
+  }).addTo(map);
+
+  const allRoute = L.polyline([
+    [51.3269, 13.3799],
+[51.41628, 13.460099],
+[51.498233, 13.502587],
+[51.574531, 13.577489],
+[51.640043, 13.536745],
+[51.736032, 13.634492],
+[51.781666, 13.707701],
+[51.859388, 13.623657],
+[51.962271, 13.613815],
+[52.088068, 13.731137],
+[52.166438, 13.768332],
+[52.25069, 13.72993]
+  ]);
+
+  map.fitBounds(allRoute.getBounds(), {padding: [45, 45]});
+
+  
+    L.marker([51.3269, 13.3799], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#1b8f3a;">S</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Start – Start</b><br><b>Bahnhof Glaubitz (b Riesa)</b><br>näherungsweise gesetzt: Bahnhofstraße 83/85, 01612 Glaubitz<br><small>51.326900, 13.379900</small>');
+    
+    L.marker([51.41628, 13.460099], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#1f66b1;">1</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Montag – ca. 10:30 Uhr</b><br><b>Gröditz</b><br>Sprinttankstelle / Stichstraße zum Grödel-Elsterwerdaer Floßkanal<br><small>51.416280, 13.460099</small>');
+    
+    L.marker([51.498233, 13.502587], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#1f66b1;">2</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Montag – ca. 12:00 Uhr</b><br><b>Kraupa</b><br>Mühlenstr. / Liebenwerdaer Str. / Waldweg<br><small>51.498233, 13.502587</small>');
+    
+    L.marker([51.574531, 13.577489], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#f39c12;">3</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Montag – ca. 13:30 Uhr</b><br><b>Rückersdorf</b><br>Rückersdorfer See, lange Mittagspause am Badestrand<br><small>51.574531, 13.577489</small>');
+    
+    L.marker([51.640043, 13.536745], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#1f66b1;">4</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Montag – ca. 16:00 Uhr</b><br><b>vor Wrezenhain</b><br>Weg Jähdenek Richtung Waldrand<br><small>51.640043, 13.536745</small>');
+    
+    L.marker([51.736032, 13.634492], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#1f66b1;">5</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Montag – ca. 17:30 Uhr</b><br><b>Großkrausnitz</b><br>Richtung Pension Forsthaus / L 561<br><small>51.736032, 13.634492</small>');
+    
+    L.marker([51.781666, 13.707701], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#7d3c98;">N</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Montag – ab ca. 18:30 Uhr</b><br><b>Bornsdorf</b><br>Naturcamping Horstteich – Übernachtung<br><small>51.781666, 13.707701</small>');
+    
+    L.marker([51.859388, 13.623657], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#2f8f46;">1</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Dienstag – ca. 09:30 Uhr</b><br><b>Paserin</b><br>Unter den Linden / Paseriner Weg<br><small>51.859388, 13.623657</small>');
+    
+    L.marker([51.962271, 13.613815], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#2f8f46;">2</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Dienstag – ca. 11:00 Uhr</b><br><b>Golßen</b><br>Südgraben am Utzenteich<br><small>51.962271, 13.613815</small>');
+    
+    L.marker([52.088068, 13.731137], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#f39c12;">3</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Dienstag – ca. 13:30 Uhr</b><br><b>Oderiner See</b><br>Badestelle Oderiner See – lange Mittagspause<br><small>52.088068, 13.731137</small>');
+    
+    L.marker([52.166438, 13.768332], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#2f8f46;">4</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Dienstag – ca. 15:00 Uhr</b><br><b>Schleuse Hermsdorfer Mühle</b><br>Pausenpunkt an der Schleuse<br><small>52.166438, 13.768332</small>');
+    
+    L.marker([52.25069, 13.72993], {
+      icon: L.divIcon({
+        className: 'number-marker',
+        html: '<div style="background:#d62728;">Z</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    }).addTo(map).bindPopup('<b>Ziel – Ziel</b><br><b>martas Gästehäuser Dolgensee</b><br>Prieroser Straße 6, 15754 Heidesee OT Gussow<br><small>52.250690, 13.729930</small>');
+    
+</script>
+</body>
+</html>
